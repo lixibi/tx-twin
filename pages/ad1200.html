@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<title>AD1200 - 后台管理</title>
+<link rel="stylesheet" href="../assets/css/pdu.css">
+</head><body>
+<div class="pdu-root">
+  <div class="pdu-north">
+    <div class="brand">CIRCLOOP</div>
+    <div class="devname">AD1200</div>
+    <div class="spacer"></div>
+    <div class="devname" id="hdUser"></div>
+    <span class="x-btn small" id="btnLogout" style="margin-left:10px">注销</span>
+  </div>
+
+  <div class="pdu-mid">
+    <div class="pdu-west">
+      <div class="logo">AD1200</div>
+      <ul>
+        <li class="grp">AD1200</li>
+        <li data-go="decoder1" class="sel">解码模块1设置</li>
+        <li data-go="decoder2">解码模块2设置</li>
+        <li data-go="decoder3">解码模块3设置</li>
+        <li data-go="user">用户管理</li>
+        <li data-go="device">设备参数</li>
+        <li data-go="about">关于</li>
+        <li data-go="reboot">重启</li>
+      </ul>
+    </div>
+
+    <div class="pdu-center" id="views"></div>
+  </div>
+
+  <!-- ===== 操作引导 · AI 提问（演示版，不接真实模型） ===== -->
+  <div class="ai-fab" id="aiFab" title="操作引导 · AI 提问（演示）">
+    <span class="ai-dot"></span>AI 提问<span class="ai-tag">演示</span>
+  </div>
+  <div class="ai-panel" id="aiPanel" style="display:none">
+    <div class="ai-hd">
+      <span class="ai-title">操作引导 · AI 值班助手</span>
+      <span class="ai-badge">演示版 · 未接入真实大模型</span>
+      <span class="spacer"></span>
+      <span class="x-btn small" id="aiClear">清空</span>
+      <span class="x-btn small" id="aiClose">收起</span>
+    </div>
+    <div class="ai-body" id="aiBody"></div>
+    <div class="ai-quick">
+      <span class="ai-q">· 数码管怎么读 IP</span>
+      <span class="ai-q">· 组播地址怎么设</span>
+      <span class="ai-q">· 搜不到节目怎么办</span>
+      <span class="ai-q">· 板卡1/2/3 怎么切</span>
+      <span class="ai-q">· 选中频道怎么保存</span>
+    </div>
+    <div class="ai-inbar">
+      <input class="x-form-text ai-in" id="aiInput" placeholder="问点什么，例如：解码模块3 点不动怎么办？" autocomplete="off">
+      <span class="x-btn" id="aiSend">发送</span>
+    </div>
+    <div class="ai-foot">
+      <span class="x-btn small" id="aiRunGuide">带我去设置组播</span>
+      <span class="ai-note">回答为演示内容，仅用于教学演练</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script type="module" src="../js/pages/ad1200.js"></script>
+</body></html>

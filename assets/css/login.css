@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+html, body { height: 100%; margin: 0px; padding: 0px; border: none; text-align: center; }
+
+#wrapper { height: 100%; margin: 0px auto; padding: 0px; text-align: left; vertical-align: middle; width: 100%; }
+
+.inner { vertical-align: middle; height: 284px; }
+
+.copyright1 { font-family: Arial; font-size: 11px; font-weight: normal; text-decoration: none; color: rgb(105, 105, 105); }
+
+.UIDStyle { font-family: Arial; font-size: 17px; font-weight: bold; text-decoration: none; color: rgb(255, 255, 255); line-height: 18px; }
+
+.UIDStyle2 { font-family: Arial; font-size: 12px; font-weight: normal; text-decoration: none; color: rgb(174, 197, 222); }
+
+.UIDStyle2 a:link, .UIDStyle2 a:visited { color: rgb(174, 197, 222); text-decoration: none; }
+
+.UIDStyle2 a:hover { text-decoration: underline; }
+
+.loginInput { margin-top: -2px; border: 0px; font-family: Arial; font-size: 12px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; }
+
+:first-child + html .loginInput { margin-top: -1px; border: 0px; font-family: Arial; font-size: 12px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; }
+
+html > body .loginInput { margin: 0px; border: 0px; font-family: Arial; font-size: 12px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; vertical-align: middle; }
+
+.loginInputPass { margin-top: -2px; border: 0px; font-family: Arial; font-size: 12px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; }
+
+:first-child + html .loginInputPass { margin-top: -1px; border: 0px; font-family: Arial; font-size: 12px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; }
+
+html > body .loginInputPass { margin: 0px; border: 0px; font-family: Arial; font-size: 18px; font-weight: bold; text-decoration: none; color: rgb(105, 105, 105); height: 19px; width: 140px; text-transform: none; vertical-align: middle; }
+
+#loginHolder { float: right; width: 230px; height: 45px; margin: 0px 12px 0px 0px; }
+
+html > body #loginHolder { float: right; width: 230px; height: 45px; margin: 0px 12px 0px 0px; }
+
+#loginHolder2 { float: right; width: 230px; height: 45px; margin: 0px 12px 0px 0px; }
+
+html > body #loginHolder2 { float: right; width: 230px; height: 45px; margin: 0px 12px 0px 0px; }
+
+#loginRemember { margin-top: 6px; margin-right: 12px; float: right; width: 130px; height: 10px; }
+
+html > body #loginRemember { margin-top: 6px; margin-right: 25px; float: right; width: 130px; height: 10px; }
+
+#loginSubmit { float: right; height: 10px; margin-top: 10px; padding-top: 0px; padding-right: 25px; }
+
+html > body #loginSubmit { margin-top: 10px; margin-right: 13px; float: right; height: 10px; padding: 0px; }
+
+#langSubmit { float: right; height: 10px; margin-top: 50px; padding-top: 0px; padding-right: 25px; }
+
+html > body #langSubmit { margin-top: 50px; margin-right: 13px; float: right; height: 10px; padding: 0px; }
+
+#errormsg { float: right; height: 10px; margin-top: 0px; padding-top: 0px; padding-right: 0px; color: white; }
+
+html > body #errormsg { margin-top: 50px; margin-right: 13px; float: right; height: 10px; padding: 0px; color: white; }
+
+#loginSubmitFor { float: right; height: 10px; margin-top: 0px; padding-top: 0px; padding-right: 0px; }
+
+html > body #loginSubmitFor { margin-top: 15px; margin-right: 0px; float: right; height: 10px; padding: 0px; }
+
+#loginForgot { margin-top: 10px; margin-right: 15px; float: right; width: 140px; height: 10px; }
+
+html > body #loginForgot { margin-top: 25px; margin-right: 15px; float: right; width: 140px; height: 10px; padding: 0px; }
+
+#RloginForgot { margin-top: 10px; margin-right: 5px; float: right; width: 140px; height: 10px; }
+
+html > body #RloginForgot { margin-top: 25px; margin-right: 5px; float: right; width: 140px; height: 10px; padding: 0px; }
+
+#loginFirst { width: 700px; float: right; margin: 0px; padding: 0px; height: 20px; }
+
+html > body #loginFirst { width: 700px; float: right; margin: 0px; padding: 0px; height: 20px; }
+
+#loginRemember { height: 18px; margin: 0px 12px 0px 0px; padding: 0px; }
+
+html > body #loginRemember { height: 18px; margin: 0px 12px 0px 0px; padding: 0px; }
+
+#errorMsg { }
+
+#errorDiv { font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: normal; color: rgb(255, 255, 255); text-decoration: none; }
+
+.forgotPassStatus1 { font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: normal; color: rgb(255, 255, 255); text-decoration: none; padding-top: 0px; margin-top: 5px; display: none; text-align: center; }
+
+:first-child + html .forgotPassStatus1 { padding-top: 50px; margin-top: 0px; }
+
+html > body .forgotPassStatus1 { padding-top: 80px; margin-top: 0px; }
+
+.firstbg { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 0.6em; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none; color: rgb(0, 0, 0); text-decoration: none; background-image: url("../images/first_mid.gif"); background-repeat: repeat-x; background-position: 0px 0px; }

@@ -1,0 +1,16 @@
+{
+  "multicast": { "group": "236.171.30.5", "port": "4000", "source": "236.171.30.5" },
+  "services": [
+    { "sid": 101, "name": "中国之声",       "provider": "CNR",  "pmt": 101, "pcr": 101, "audio": 102, "bitrate": 128, "tone": 262 },
+    { "sid": 102, "name": "音乐之声",       "provider": "CNR",  "pmt": 111, "pcr": 111, "audio": 112, "bitrate": 128, "tone": 330 },
+    { "sid": 103, "name": "经济之声",       "provider": "CNR",  "pmt": 121, "pcr": 121, "audio": 122, "bitrate": 128, "tone": 392 },
+    { "sid": 104, "name": "桂林新闻综合",   "provider": "GLRT", "pmt": 131, "pcr": 131, "audio": 132, "bitrate": 128, "tone": 440 },
+    { "sid": 105, "name": "桂林旅游",       "provider": "GLRT", "pmt": 141, "pcr": 141, "audio": 142, "bitrate": 128, "tone": 494 },
+    { "sid": 106, "name": "发射台测试频率", "provider": "TEST", "pmt": 151, "pcr": 151, "audio": 152, "bitrate": 128, "tone": 523 }
+  ],
+  "modules": [
+    { "id": 1, "input": "IP",   "label": "解码模块1设置" },
+    { "id": 2, "input": "ASI1", "label": "解码模块2设置" },
+    { "id": 3, "input": "E1",   "label": "解码模块3设置" }
+  ]
+}

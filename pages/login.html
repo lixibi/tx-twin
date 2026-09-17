@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<title>Welcome to Circloop</title>
+<link rel="stylesheet" href="../assets/css/login.css">
+<style>
+  html,body{height:100%}
+  #wrapper{width:100%!important}
+  .loginInput,.loginInputPass{font-size:15px!important;height:22px!important}
+  #errormsg{color:#ffb4b4!important;font-weight:bold}
+  .teachBadge{position:fixed;right:10px;bottom:8px;font-size:11px;color:#fff;background:rgba(0,0,0,.42);
+    padding:3px 9px;border-radius:10px;font-family:Arial,"Microsoft YaHei"}
+  .ipTip{position:fixed;left:10px;top:8px;font-size:12px;color:#fff;background:rgba(0,0,0,.42);
+    padding:5px 10px;border-radius:6px;line-height:1.7;font-family:Arial,"Microsoft YaHei"}
+  .ipTip b{color:#ffe08a}
+
+  /* ===== 明文演示：把后台账号密码“打”给学员看（教学特效） ===== */
+  #tipUrl{color:#ffe08a}
+  #demoBox{position:fixed;left:10px;bottom:8px;z-index:40;font-family:Consolas,"Microsoft YaHei",monospace;
+    background:rgba(4,12,20,.9);border:1px solid #2f6ea8;border-radius:8px;padding:8px 12px;
+    color:#bfe4ff;font-size:13px;line-height:1.9;letter-spacing:.4px;min-width:288px;
+    box-shadow:0 6px 20px rgba(0,0,0,.55)}
+  #demoBox .dh{font-size:11.5px;color:#7fc8ff;font-weight:bold;letter-spacing:.5px;margin-bottom:3px}
+  #demoBox .drow{display:flex;gap:6px;align-items:baseline;white-space:nowrap}
+  #demoBox .dlab{color:#8fb4d6;width:74px;display:inline-block}
+  #demoBox .dval{color:#8affcd;font-weight:bold;min-height:19px;display:inline-block}
+  #demoBox .dval.typed{text-shadow:0 0 9px rgba(46,204,143,.95)}
+  #demoBox .cursor{display:inline-block;width:8px;background:#8affcd;animation:blink .7s steps(1) infinite;color:transparent}
+  @keyframes blink{50%{opacity:0}}
+  #demoBox .ok{color:#39d98a;margin-top:4px;font-size:12px}
+  #demoBox .hintline{color:#68809b;font-size:11px;margin-top:4px}
+
+  /* 输入框高亮脉冲：告诉学员“正在输入这里” */
+  .fieldHot{animation:hot 1.1s ease-in-out infinite}
+  @keyframes hot{0%,100%{box-shadow:0 0 0 0 rgba(57,199,255,0)}50%{box-shadow:0 0 0 3px rgba(57,199,255,.55)}}
+</style></head>
+<body>
+<div style="text-align:right;">
+ <table id="wrapper">
+  <tr><td height="130">&nbsp;</td></tr>
+  <tr><td align="center" valign="middle">
+    <div id="LoginDiv" style="align:right">
+    <div style="clear:both;"></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="inner">
+      <tr>
+        <td height="353" align="right" valign="middle" background="../assets/img/bg/Login1_bg.gif"></td>
+        <td height="353" align="right" valign="middle" background="../assets/img/bg/Login1_bg.gif">
+          <img src="../assets/img/bg/login_bgbg.gif" width="432" height="353"></td>
+        <td width="425" height="353" align="center" valign="top"
+            style="background: url(../assets/img/bg/Login2c_bg.gif) top left no-repeat">
+          <table width="425" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="16" align="left" valign="middle"><img src="../assets/img/bg/Login2a_bg.gif" width="16" height="263"></td>
+              <td align="right" valign="top" background="../assets/img/bg/Login2_bg.gif">
+                <div id="authenticationDiv" style="display:block; margin-top:0px; height:200px;">
+                  <div style="height:48px; clear:both;"></div>
+                  <div id="loginHolder">
+                    <table width="100%" height="50" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td id="username_txt" width="57%" align="left" valign="top" class="UIDStyle">用户名</td>
+                        <td width="43%" align="right" valign="top">
+                          <table id="name_table" width="152" height="14" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td width="6" align="left" valign="top"><img src="../assets/img/bg/left.jpg" width="7" height="18"></td>
+                              <td align="center" valign="top"><input name="userName" id="username_input" type="text" class="loginInput" autocomplete="off"></td>
+                              <td width="6" align="right" valign="top"><img src="../assets/img/bg/right.jpg" width="7" height="18"></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td id="password_txt" align="left" valign="top" class="UIDStyle">密  码</td>
+                        <td align="right" valign="top">
+                          <table id="passwd_table" width="152" height="16" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td width="6" align="left" valign="top"><img src="../assets/img/bg/left.jpg" width="7" height="18"></td>
+                              <td align="center" valign="top"><input id="passwd_input" name="password" type="password" class="loginInputPass"></td>
+                              <td width="6" align="right" valign="top"><img src="../assets/img/bg/right.jpg" width="7" height="18"></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div style="clear:both;"></div>
+                  <div id="loginSubmit"><input id="login_image" type="image" src="../assets/img/bg/Login_cn.gif" width="105" height="33" border="0" alt="登录"></div>
+                  <div style="clear:both;"></div>
+                  <div id="langSubmit"><input id="lang_image" type="image" src="../assets/img/bg/lang_en.jpg" width="105" height="33" border="0" alt="English"></div>
+                  <div style="clear:both;height:5px;"></div>
+                  <div style="clear:both;"></div>
+                  <div id="errormsg"></div>
+                </div>
+                <div style="clear:both;"></div>
+              </td>
+              <td width="16" align="right" valign="middle"><img src="../assets/img/bg/Login2b_bg.gif" width="16" height="263"></td>
+            </tr>
+          </table>
+          <span class="copyright1">Copyright © 2000-2014 <a href="#" style="text-decoration:none"><font color="#808080">Circloop Inc.</font></a> All rights reserved</span>
+        </td>
+        <td width="139" height="353" align="right" valign="middle"><img src="../assets/img/bg/Login3_bg.gif" width="139" height="353"></td>
+      </tr>
+    </table>
+    </div>
+  </td></tr>
+ </table>
+</div>
+<div class="ipTip" id="ipTip">设备管理地址: <b id="tipUrl">192.168.1.150</b></div>
+<div id="demoBox">
+  <div class="dh">教学提示 · 本机登录账号（明文打给学员看）</div>
+  <div class="drow"><span class="dlab">用户名</span><span class="dval" id="demoUser"></span></div>
+  <div class="drow"><span class="dlab">密&nbsp;&nbsp;&nbsp;码</span><span class="dval" id="demoPass"></span></div>
+  <div class="hintline" id="demoHint">输入框已清空，请学员自己输入（账号密码为空，不预填、不记忆）</div>
+  <div class="ok" id="demoOk" style="display:none">✓ 输入正确，正在登录…</div>
+</div>
+<div class="teachBadge">AD1200 教学模拟 · Welcome to Circloop</div>
+<script type="module">
+import { LOGIN } from '../js/config.js';
+const ui   = document.getElementById('username_input');
+const pi   = document.getElementById('passwd_input');
+const err  = document.getElementById('errormsg');
+const url  = new URLSearchParams(location.search);
+const dUser= document.getElementById('demoUser');
+const dPass= document.getElementById('demoPass');
+const dHint= document.getElementById('demoHint');
+const dOk  = document.getElementById('demoOk');
+document.getElementById('tipUrl').textContent = url.get('host') || '192.168.1.150';
+
+/* ============ 1) 每次打开登录页都强制清空，不预填、不记忆 ============ */
+function hardClear(){
+  ui.value = ''; pi.value = '';
+  ui.setAttribute('autocomplete','off'); pi.setAttribute('autocomplete','off');
+  try{ ui.defaultValue = ''; pi.defaultValue = ''; }catch(e){}
+  if(err) err.textContent = '';
+  dUser.textContent = ''; dPass.textContent = '';
+  dUser.classList.remove('typed'); dPass.classList.remove('typed');
+  dOk.style.display = 'none';
+  dHint.textContent = '输入框已清空，请学员自己输入（账号密码为空，不预填、不记忆）';
+}
+hardClear();
+/* 浏览器“后退/前进”回到本页时也要清空，禁止自动填充记住上一次的账号 */
+addEventListener('pageshow', ()=>{ hardClear(); });
+addEventListener('load',   ()=>{ hardClear(); });
+setTimeout(hardClear, 80);
+ui.addEventListener('focus', ()=>{ err.textContent=''; });
+pi.addEventListener('focus', ()=>{ err.textContent=''; });
+
+/* ============ 2) 明文特效：像打字机一样把账号密码打出来给学员看 ============ */
+let typing = false;
+function typeInto(el, text, speed, done){
+  el.textContent = '';
+  el.classList.add('typed');
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor'; cursor.textContent = '_';
+  el.appendChild(cursor);
+  const tick = ()=>{
+    if(i >= text.length){
+      cursor.remove();
+      el.textContent = text;
+      done && done();
+      return;
+    }
+    cursor.remove();
+    el.textContent = text.slice(0, ++i);
+    el.appendChild(cursor);
+    setTimeout(tick, speed);
+  };
+  tick();
+}
+/* 学员开始输入时触发；输入框本身保持原生样式，明文只在提示面板上展示 */
+function runDemoEffect(){
+  if(typing) return;
+  typing = true;
+  dHint.textContent = '正在把这个设备的登录账号“打”给你看…';
+  dOk.style.display = 'none';
+  dUser.classList.remove('typed'); dPass.classList.remove('typed');
+  dUser.textContent = ''; dPass.textContent = '';
+  typeInto(dUser, LOGIN.user, 150, ()=>{
+    const c = document.createElement('span'); c.className='cursor'; c.textContent='_';
+    dPass.appendChild(c);
+    setTimeout(()=>{
+      typeInto(dPass, LOGIN.pass, 200, ()=>{
+        typing = false;
+        dHint.innerHTML = '记好：用户名 <b style="color:#ffe08a">'+LOGIN.user+'</b> ／ 密码 <b style="color:#ffe08a">'+LOGIN.pass+
+          '</b>（教学中把明文给学员看，实机上请勿外泄）';
+        ui.classList.add('fieldHot'); pi.classList.add('fieldHot');
+        setTimeout(()=>{ ui.classList.remove('fieldHot'); pi.classList.remove('fieldHot'); }, 2600);
+        ui.focus();
+      });
+    }, 260);
+  });
+}
+let demoDone = false;
+function triggerDemo(){
+  if(demoDone) return; demoDone = true;
+  runDemoEffect();
+}
+ui.addEventListener('input', triggerDemo);
+pi.addEventListener('input', triggerDemo);
+ui.addEventListener('pointerdown', triggerDemo);
+pi.addEventListener('pointerdown', triggerDemo);
+/* 打开 3 秒后自动演示一次，保证投屏时学员一定看到明文 */
+setTimeout(triggerDemo, 2600);
+
+/* ============ 3) 提交 ============ */
+function submit(){
+  const u = ui.value.trim(), p = pi.value;
+  if(u === LOGIN.user && p === LOGIN.pass){
+    err.style.color = '#a8ffd4';
+    err.textContent = '登录成功，正在跳转…';
+    dOk.style.display = 'block';
+    dHint.textContent = '登录成功';
+    parent.postMessage({type:'pdu-login-ok', user:u}, '*');
+  } else {
+    err.style.color = '#ffb4b4';
+    err.textContent = '用户名或密码错误，请重试';
+    /* 输错也把输入框清空，学员每次都要自己重新输入 */
+    pi.value = ''; ui.value = '';
+    dHint.innerHTML = '❌ 输入不正确。正确账号见上方明文提示：<b style="color:#ffe08a">'+LOGIN.user+' / '+LOGIN.pass+'</b>';
+    pi.focus();
+    parent.postMessage({type:'pdu-login-fail', user:u}, '*');
+  }
+}
+document.getElementById('login_image').onclick = submit;
+ui.addEventListener('keydown', e=>{ if(e.key==='Enter') pi.focus(); });
+pi.addEventListener('keydown', e=>{ if(e.key==='Enter') submit(); });
+ui.focus();
+</script>
+</body></html>

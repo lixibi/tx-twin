@@ -1,0 +1,304 @@
+/* ============================================================
+   AD1200 数字孪生教学系统 — 主样式
+   ============================================================ */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#05070c;
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",-apple-system,Arial,sans-serif;
+  color:#dbe4f0;-webkit-font-smoothing:antialiased}
+
+/* ---------- 主舞台：随窗口自适应缩放 ----------
+   设计基准 1600×900，但【不再锁死成 16:9】：
+   窗口更高/更扁都按同一比例整体缩放并铺满可视区，
+   保证左侧配置电脑 + 右侧孪生永远完整可见，不会被裁掉。 */
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 0%,#101a2b 0%,#05070c 70%)}
+#stage{width:1600px;height:900px;position:relative;transform-origin:center center;
+  background:#080c14;box-shadow:0 0 0 1px #1d2a3f,0 30px 90px rgba(0,0,0,.85);overflow:hidden}
+/* 窄窗口（宽度不足）时允许整体上下滚动，绝不裁掉左右两栏 */
+body.narrow #viewport{overflow:auto;align-items:flex-start;justify-content:flex-start}
+body.narrow #stage{margin:auto}
+
+/* ---------- 顶栏 ---------- */
+#topbar{position:absolute;left:0;top:0;width:1600px;height:52px;z-index:40;
+  display:flex;align-items:center;gap:14px;padding:0 16px;
+  background:linear-gradient(180deg,#131d2e,#0b1220);border-bottom:1px solid #23324a}
+#topbar .logo{font-size:17px;font-weight:700;letter-spacing:.5px;color:#e8f2ff;white-space:nowrap}
+#topbar .logo b{color:#39c7ff}
+#topbar .sub{font-size:11px;color:#6d829c}
+#stepbar{display:flex;gap:6px;margin-left:8px;flex:1;min-width:0}
+.step{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:14px;font-size:11.5px;
+  background:#0e1626;border:1px solid #1f2e45;color:#7f93ac;white-space:nowrap}
+.step .n{width:16px;height:16px;border-radius:50%;background:#182741;color:#8fa6c2;font-size:10px;
+  display:flex;align-items:center;justify-content:center;font-weight:700}
+.step.done{border-color:#1d5b46;color:#7fe0b6}
+.step.done .n{background:#1c8f66;color:#eafff6}
+.step.active{border-color:#2f7fb8;background:#0f2337;color:#bfe4ff;box-shadow:0 0 0 1px rgba(57,199,255,.35)}
+.step.active .n{background:#39c7ff;color:#052033}
+#topbar .right{display:flex;align-items:center;gap:8px}
+.tbtn{padding:6px 12px;border-radius:6px;border:1px solid #2a3d59;background:#122036;color:#b9cde6;
+  font-size:12px;cursor:pointer;white-space:nowrap}
+.tbtn:hover{border-color:#39c7ff;color:#e6f6ff;background:#16283f}
+.tbtn.small{padding:4px 9px;font-size:11px}
+
+/* ---------- 左右分栏 ---------- */
+#leftCol{position:absolute;left:0;top:52px;width:772px;height:848px;padding:8px 8px 8px 10px;
+  display:flex;flex-direction:column;gap:7px;border-right:1px solid #1a2638;background:#070b12}
+#rightCol{position:absolute;right:0;top:52px;width:828px;height:848px;padding:8px 10px 8px 8px;
+  display:flex;flex-direction:column;gap:7px;background:linear-gradient(180deg,#080d16,#060a11)}
+
+/* ---------- 电脑外壳（含桌面栏） ---------- */
+#pcShell{height:100%;display:flex;flex-direction:column;background:#0c121d;border:1px solid #22314a;
+  border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+#pcBar{height:28px;display:flex;align-items:center;gap:8px;padding:0 10px;background:#131c2c;border-bottom:1px solid #22314a;font-size:11.5px;color:#8ba2bd}
+#pcBar .traffic{display:flex;gap:5px}
+#pcBar .traffic i{width:9px;height:9px;border-radius:50%;display:block}
+#pcBar .traffic i:nth-child(1){background:#ff5f57}#pcBar .traffic i:nth-child(2){background:#febc2e}#pcBar .traffic i:nth-child(3){background:#28c840}
+#addrBar{height:34px;display:flex;align-items:center;gap:8px;padding:0 10px;background:#0e1626;border-bottom:1px solid #1c2839}
+#addrBar .nav{width:22px;height:22px;border-radius:5px;background:#18233a;color:#7f9ab8;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;user-select:none}
+#addrBar .nav:hover{background:#22304c;color:#bfe0ff}
+#urlBox{flex:1;height:24px;border-radius:12px;background:#060a11;border:1px solid #22314a;display:flex;align-items:center;padding:0 10px;font-size:12px;color:#9fd0f0}
+#urlBox .scheme{color:#4d6b8a;margin-right:2px}
+#addrBar .lock{font-size:11px;color:#3fbf8f}
+#pcLockBadge{font-size:11px;padding:3px 9px;border-radius:10px;border:1px solid #4a2c2c;
+  background:#22141a;color:#ff9d9d;white-space:nowrap;cursor:pointer;user-select:none;
+  transition:all .18s ease}
+#pcLockBadge:hover{filter:brightness(1.15)}
+#pcLockBadge.warn{border-color:#5c4a1f;background:#1c1708;color:#ffd479}
+#pcLockBadge.ok{border-color:#1f5c46;background:#0e2a20;color:#6ee7b7;
+  box-shadow:0 0 0 1px rgba(46,204,143,.35),0 0 12px rgba(46,204,143,.35)}
+/* “测试连通性”按钮：连通后常亮绿色（连接绿色） */
+.btn.ghost.on{background:#0e3a2b;border-color:#2ecc8f;color:#7fe0b6;
+  box-shadow:0 0 0 1px rgba(46,204,143,.35),0 0 14px rgba(46,204,143,.28)}
+.btn.ghost.on::before{content:'✓ '}
+.btn.ghost.bad{border-color:#ff6b6b;color:#ff9d9d;box-shadow:0 0 0 2px rgba(255,107,107,.18)}
+#screenWrap{flex:1;position:relative;background:#0a0f16;overflow:hidden;display:block}
+#screenWrap::-webkit-scrollbar{width:11px;height:11px}
+#screenWrap::-webkit-scrollbar-thumb{background:#2c4260;border-radius:6px;border:2px solid #0a0f16}
+#screenWrap::-webkit-scrollbar-corner{background:#0a0f16}
+/* ============================================================
+   模拟浏览器屏幕：固定 16:9 画框，原厂页面按 16:9 渲染后整体等比缩放，
+   这样后台里那些按 1600×900 排版的面板、表格就不会被裁掉
+   ============================================================ */
+/* 真·视口：中心对齐；内容比容器大时由 #screenWrap 出滚动条 */
+#screenStage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:auto}
+#screenBox{position:relative;width:1600px;height:900px;flex:0 0 auto;transform-origin:center center;
+  background:#fff;box-shadow:0 0 0 1px #1c2839,0 6px 26px rgba(0,0,0,.6)}
+#screenFrame{position:absolute;left:0;top:0;width:1600px;height:900px;border:0;display:block;background:#fff}
+#screenScaleTip{position:absolute;right:8px;top:7px;z-index:5;font-size:10.5px;color:#9fd0f0;
+  background:rgba(8,14,24,.72);border:1px solid #2a3d59;border-radius:8px;padding:2px 8px;pointer-events:none;
+  font-family:Consolas,monospace;letter-spacing:.2px}
+
+/* ---------- 底部工具/教学面板 ---------- */
+#dock{height:212px;min-height:212px;display:flex;gap:8px}
+.panel{background:#0c121d;border:1px solid #22314a;border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
+.panel h3{margin:0;padding:8px 11px;font-size:12px;font-weight:600;color:#cfe4fb;background:#131c2c;
+  border-bottom:1px solid #22314a;display:flex;align-items:center;gap:7px}
+.panel h3 .tag{font-size:10px;font-weight:400;color:#7f9ab8;border:1px solid #33465f;border-radius:8px;padding:1px 6px}
+.panel .body{padding:9px 11px;overflow:auto;flex:1}
+
+/* 本机网络配置 */
+#netPanel{width:330px;min-width:330px}
+.nrow{display:flex;align-items:center;margin-bottom:7px;font-size:12px}
+.nrow label{width:74px;color:#93a8c2;flex-shrink:0}
+.nrow input{flex:1;height:26px;background:#060a11;border:1px solid #2a3d59;border-radius:5px;color:#e2f0ff;
+  padding:0 8px;font-size:12.5px;font-family:Consolas,Menlo,monospace;outline:none}
+.nrow input:focus{border-color:#39c7ff;box-shadow:0 0 0 2px rgba(57,199,255,.16)}
+.nrow input.bad{border-color:#ff6b6b;box-shadow:0 0 0 2px rgba(255,107,107,.16)}
+.nrow input.good{border-color:#2ecc8f}
+.hint{font-size:11px;line-height:1.6;color:#7e93ad;background:#0a1520;border:1px dashed #23374f;border-radius:6px;padding:7px 9px}
+.hint b{color:#9fd0f0}
+.hint code{color:#7fe0b6;font-family:Consolas,monospace}
+.hint.warn{border-color:#5c4a1f;background:#1c1708;color:#e0c27f}
+.hint.ok{border-color:#1f5c46;background:#0c2019;color:#7fe0b6}
+.btnrow{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.btn{padding:6px 12px;border-radius:6px;border:1px solid #2a3d59;background:#152338;color:#c6dcf5;font-size:12px;cursor:pointer}
+.btn:hover{background:#1c304b;border-color:#3d5b80}
+.btn.primary{background:linear-gradient(180deg,#1b6fb5,#155a94);border-color:#2f8fd6;color:#fff}
+.btn.primary:hover{background:linear-gradient(180deg,#2084d4,#176aab)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.btn.on{background:#0e3a2b;border-color:#2ecc8f;color:#7fe0b6}
+
+/* 教学面板 */
+#tipPanel{flex:1;min-width:0}
+#stepTitle{font-size:13px;font-weight:700;color:#9fd0f0;margin-bottom:5px}
+#stepBody{font-size:12.2px;line-height:1.72;color:#b7c9de}
+#stepBody em{color:#ffd479;font-style:normal;font-weight:600}
+#stepBody code{background:#0a1520;border:1px solid #23374f;border-radius:4px;padding:0 4px;color:#7fe0b6;font-family:Consolas,monospace}
+#stepBody pre.seq{margin:6px 0;padding:7px 10px;background:#080f18;border:1px dashed #2a3d59;border-radius:6px;
+  color:#9fd0f0;font-family:Consolas,Menlo,monospace;font-size:11.5px;line-height:1.75;white-space:pre;overflow:auto}
+#stepBody ul{margin:4px 0 0;padding-left:17px}
+#stepBody li{margin:2px 0}
+#checkList{margin-top:8px;border-top:1px dashed #22314a;padding-top:7px}
+.chk{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;line-height:1.5;color:#7e93ad;margin:3px 0}
+.chk .ic{width:14px;height:14px;border-radius:50%;border:1px solid #3a4d69;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:9px;margin-top:1px}
+.chk.ok{color:#7fe0b6}.chk.ok .ic{background:#1c8f66;border-color:#1c8f66;color:#eafff6}
+
+/* 实机侧信息 */
+#simPanel{height:100%;min-height:0;display:flex;flex-direction:column;gap:7px}
+#threeWrap{flex:1 1 auto;min-height:180px;position:relative;background:radial-gradient(ellipse at 50% 22%,#131e30 0%,#06090f 72%);
+  border:1px solid #22314a;border-radius:10px;overflow:hidden;min-height:0}
+#threeCanvas{display:block;width:100%;height:100%}
+#viewHint{position:absolute;left:10px;bottom:8px;font-size:10.5px;color:#68809b;pointer-events:none;line-height:1.5}
+#viewCtrls{position:absolute;right:8px;top:8px;display:flex;gap:5px;z-index:5}
+#viewCtrls .tbtn{padding:4px 8px;font-size:11px;background:rgba(10,18,30,.82)}
+#hoverTip{position:absolute;z-index:9;pointer-events:none;display:none;font-size:11px;color:#eaf6ff;
+  background:rgba(12,26,42,.96);border:1px solid #3d6f9e;border-radius:5px;padding:3px 7px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.6)}
+
+/* 数码管状态 */
+#ledStrip{display:flex;gap:8px;height:112px;flex:0 0 auto}
+.ledbox{flex:1;background:#070c14;border:1px solid #22314a;border-radius:10px;padding:7px 10px;display:flex;flex-direction:column}
+.ledbox h4{margin:0 0 5px;font-size:11px;font-weight:600;color:#93a8c2;display:flex;justify-content:space-between;align-items:center}
+.ledgrid{font-family:"DSEG7","Consolas",monospace;color:#ff9d2e;font-size:22px;letter-spacing:3px;
+  text-shadow:0 0 8px rgba(255,140,20,.85),0 0 18px rgba(255,110,0,.45);line-height:1.25;word-break:break-all}
+.ledgrid .seg-off{color:#2e1d0b;text-shadow:none;opacity:.75}
+.ledgrid .seg-frame{color:#8a5a1e;text-shadow:none;opacity:.55;letter-spacing:0}
+.ledlabel{font-size:10.5px;color:#7f93ac;margin-bottom:3px;letter-spacing:.4px}
+.lockrow{display:flex;align-items:center;gap:6px;font-size:11px;color:#9eb3cc;margin-top:3px}
+.lockdot{width:11px;height:11px;border-radius:50%;background:#e14a4a;box-shadow:0 0 8px rgba(225,74,74,.9)}
+.lockdot.green{background:#2ecc8f;box-shadow:0 0 10px rgba(46,204,143,.95)}
+.lockdot.amber{background:#f5b942;box-shadow:0 0 10px rgba(245,185,66,.9)}
+.ledbox .prog{font-size:10.5px;color:#7f93ac;margin-top:auto}
+.ledbox .prog b{color:#9fd0f0;font-weight:600}
+
+/* 消息栏 / 日志 */
+#logbox{height:100%;display:flex;flex-direction:column}
+#loglist{flex:1;overflow:auto;font-size:11.3px;line-height:1.62;font-family:Consolas,Menlo,monospace}
+.logline{display:flex;gap:7px;padding:1px 0;border-bottom:1px solid rgba(34,49,74,.4)}
+.logline .t{color:#546a86;flex-shrink:0}
+.logline.ok .m{color:#7fe0b6}.logline.err .m{color:#ff9d9d}.logline.warn .m{color:#ffd479}
+.logline.info .m{color:#a9c2dc}
+.floatbar{position:absolute;left:10px;right:10px;bottom:10px;height:0;overflow:hidden;
+  background:rgba(14,26,42,.93);border:1px solid #2a3d59;border-radius:8px;transition:height .18s ease;
+  font-size:11px;color:#9eb3cc;z-index:6}
+.floatbar.show{height:30px;display:flex;align-items:center;padding:0 10px;gap:8px}
+
+/* ---------- 音频输出模式提示 ---------- */
+.audiomode{margin-top:6px;padding:6px 11px;border-radius:8px;font-size:11.5px;
+  border:1px solid #23374f;background:#0a1520;color:#8fa6c2;line-height:1.5}
+.audiomode.online{border-color:#1f5c46;background:#0b2318;color:#7fe0b6}
+.audiomode.synth{border-color:#5c4a1f;background:#1c1708;color:#e0c27f}
+
+/* ---------- 顶栏新增：分隔线 / 缩放组 / 全屏按钮 ---------- */
+#topbar .vsep{width:1px;height:18px;background:#26374f;margin:0 2px}
+.zoomgrp{display:flex;align-items:center;gap:4px;padding:2px 6px;border:1px solid #22314a;
+  border-radius:8px;background:#0d1626}
+.zoomgrp .zlabel{font-size:10.5px;color:#7f93ac;margin-right:2px}
+.zoomgrp .zval{font-size:11px;color:#bfe4ff;font-family:Consolas,monospace;min-width:34px;text-align:center}
+.tbtn.accent{border-color:#2f7fb8;background:#123049;color:#bfe4ff}
+.tbtn.accent:hover{background:#17405f;border-color:#39c7ff}
+
+/* ---------- 输出通道面板 ---------- */
+#outPanel{background:#070c14;border:1px solid #22314a;border-radius:10px;padding:7px 10px 8px;flex:0 0 auto}
+#outPanel h4{margin:0 0 6px;font-size:11px;font-weight:600;color:#93a8c2;display:flex;align-items:center;gap:7px}
+#outPanel h4 .tag{font-size:10px;font-weight:400;color:#7f9ab8;border:1px solid #33465f;border-radius:8px;padding:1px 6px}
+#outStrip{display:flex;gap:6px}
+.outchip{flex:1;min-width:0;border:1px solid #22314a;border-radius:7px;background:#0a1220;
+  padding:5px 6px;cursor:pointer;transition:all .15s ease;display:flex;flex-direction:column;gap:1px}
+.outchip:hover{border-color:#3d6f9e;background:#0e1a2b}
+.outchip .oc-b{font-size:11px;font-weight:600;color:#bfd6ef}
+.outchip .oc-s{font-size:10px;color:#7f93ac}
+.outchip .oc-d{font-size:10px;color:#5d7a99}
+.outchip.play{border-color:#2f7fb8;background:#0d1f31}
+.outchip.play .oc-d{color:#7fc8ff}
+.outchip.lock{border-color:#1f5c46;background:#0b2318}
+.outchip.lock .oc-d{color:#6ee7b7}
+.outchip.sel{box-shadow:0 0 0 1px rgba(57,199,255,.55),0 0 12px rgba(57,199,255,.25);border-color:#39c7ff}
+#outPanel .outHint{font-size:10.5px;color:#68809b;line-height:1.55;margin-top:6px}
+
+/* ============================================================
+   整体视觉打磨：统一的圆角 / 阴影 / 字阶 / 焦点态
+   ============================================================ */
+:root{
+  --bg-0:#05070c; --bg-1:#0b1220; --bg-2:#101a2b; --bg-3:#16233a;
+  --line:#22314a; --line-soft:#1a2638;
+  --txt-0:#eaf2ff; --txt-1:#c6d8ee; --txt-2:#93a8c2; --txt-3:#6d829c;
+  --cyan:#39c7ff; --green:#2ecc8f; --amber:#f5b942; --red:#ff6b6b;
+  --radius:12px; --radius-sm:8px;
+  --shadow-1:0 2px 10px rgba(0,0,0,.35);
+  --shadow-2:0 10px 30px rgba(0,0,0,.55);
+}
+
+/* 统一卡片 */
+.panel,#outPanel,.ledbox,#threeWrap,#pcShell{
+  border-radius:var(--radius)!important;
+  box-shadow:var(--shadow-1);
+  border-color:var(--line)!important;
+}
+.panel h3,.ledbox h4,#outPanel h4{letter-spacing:.3px}
+.panel h3{background:linear-gradient(180deg,#16233a,#111c2e)}
+.panel .body{padding:10px 12px}
+
+/* 统一按钮态 */
+.tbtn,.btn{transition:background .14s ease,border-color .14s ease,transform .08s ease,box-shadow .14s ease}
+.tbtn:active,.btn:active{transform:translateY(1px)}
+.tbtn:focus-visible,.btn:focus-visible,input:focus-visible,.outchip:focus-visible{
+  outline:2px solid rgba(57,199,255,.6);outline-offset:1px}
+.btn.primary{box-shadow:0 2px 8px rgba(21,90,148,.45)}
+
+/* 步骤条：更清晰的状态区分 */
+.step{transition:all .16s ease;border-radius:16px;padding:5px 11px}
+.step.done{background:#0c2019}
+.step.active{background:linear-gradient(180deg,#12314c,#0f2337);
+  box-shadow:0 0 0 1px rgba(57,199,255,.45),0 2px 10px rgba(57,199,255,.18)}
+.step:not(.active):not(.done):hover{border-color:#33507a;color:#a9c2dc}
+
+/* 焦点区：当前教学步骤更醒目 */
+#stepTitle{font-size:14px;letter-spacing:.3px}
+#tipPanel{box-shadow:0 0 0 1px rgba(57,199,255,.10),var(--shadow-1)!important}
+#taskTag{background:#12314c;border-color:#2f6ea8!important;color:#bfe4ff!important}
+
+/* 输入框统一 */
+.nrow input{height:28px;border-radius:var(--radius-sm)}
+.nrow label{color:var(--txt-2)}
+
+/* 日志：更干净的隔行 */
+.logline{border-bottom-color:rgba(34,49,74,.35)}
+.logline:last-child{border-bottom:0}
+
+/* 3D 视图控制条：更整齐 */
+#viewCtrls{gap:4px;background:rgba(8,14,24,.55);padding:5px;border-radius:10px;
+  border:1px solid rgba(57,199,255,.14);backdrop-filter:blur(3px)}
+#viewCtrls .tbtn{padding:4px 9px;border-radius:6px;background:rgba(14,24,40,.9)}
+#viewCtrls .tbtn.on{background:#0e3a2b;border-color:var(--green);color:#7fe0b6}
+
+/* 底部提示条 */
+.floatbar{border-radius:var(--radius-sm);box-shadow:var(--shadow-1)}
+
+/* 滚动条：细、不抢眼 */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#233650;border-radius:6px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:#32507a;background-clip:content-box}
+/* ============================================================
+   模拟浏览器窗口：可最大化 / 拖动 / 缩放
+   ============================================================ */
+#pcBar{user-select:none}
+.pcbtn{width:24px;height:18px;padding:0;border-radius:5px;border:1px solid #2a3d59;background:#18233a;
+  color:#9fb8d4;font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pcbtn:hover{border-color:#39c7ff;color:#e6f6ff;background:#22304c}
+.pcbtn:active{transform:translateY(1px)}
+/* 浮动/最大化时用 absolute 脱离文档流，但必须给 dock 预留原停靠高度，
+   否则左侧栏底部「本机网络配置」会被顶到上面、被浏览器窗口盖住 */
+#pcShell.floating{position:absolute;z-index:60;border-color:#2f4b70!important;
+  box-shadow:0 24px 64px rgba(0,0,0,.72),0 0 0 1px rgba(57,199,255,.22)}
+#leftCol.pc-float #dock{margin-top:auto}
+#pcShell.floating #pcBar{background:linear-gradient(180deg,#1c2c46,#131c2c);cursor:move}
+#pcShell.floating.max{z-index:70}
+.pc-grip{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize;z-index:8;opacity:.75;
+  background:linear-gradient(135deg,transparent 0 42%,#4d6b90 42% 50%,transparent 50% 66%,#4d6b90 66% 74%,transparent 74%)}
+.pc-grip:hover{opacity:1;background:linear-gradient(135deg,transparent 0 38%,#39c7ff 38% 50%,transparent 50% 62%,#39c7ff 62% 76%,transparent 76%)}
+
+/* 左右声道配色：蓝 = 左声道 L，红 = 右声道 R */
+.oc-l{color:#7fc8ff}
+.oc-r{color:#ff9d9d}
+#outPanel .outHint b.oc-l,#outPanel .outHint b.oc-r{font-weight:600}
+.outchip.sel .oc-s{color:#dff1ff}
+#pcBar .vsep{width:1px;height:14px;background:#26374f;margin:0 2px}
+/* 3D 仿真窗口放大（覆盖整个舞台） */
+#threeWrap.zoomed{position:absolute;left:-762px;top:10px;width:1580px;height:828px;z-index:65;
+  box-shadow:0 24px 64px rgba(0,0,0,.72),0 0 0 1px rgba(57,199,255,.22)}
+#threeWrap.zoomed #viewCtrls{top:10px;right:12px}
+
+

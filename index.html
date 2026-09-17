@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>桂林广播电视发射台 岗位练兵 · AD1200 音频解码器数字孪生</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <!-- ===== 顶栏 ===== -->
+  <header id="topbar">
+    <div>
+      <div class="logo">桂林广播电视发射台 <b>岗位练兵</b></div>
+      <div class="sub">AD1200 音频解码器 · 数字孪生实操考核 ｜ 12 县信号源解码 / 尧山微波备份链路</div>
+    </div>
+    <nav id="stepbar"></nav>
+    <div class="right">
+      <button class="tbtn small" id="btnGuide">操作引导</button>
+      <button class="tbtn small" id="btnAi" title="操作引导 · AI 提问（演示版，回复为演示内容）">AI 提问</button>
+      <button class="tbtn small" id="btnAutoFill">一键正确配置</button>
+      <button class="tbtn small" id="btnReset">重置实验</button>
+      <span class="vsep"></span>
+      <div class="zoomgrp">
+        <span class="zlabel">界面缩放</span>
+        <button class="tbtn small" id="btnZoomOut" title="缩小界面">−</button>
+        <span id="zoomVal" class="zval">100%</span>
+        <button class="tbtn small" id="btnZoomIn" title="放大界面">＋</button>
+        <button class="tbtn small" id="btnZoomReset" title="恢复默认">复位</button>
+      </div>
+      <button class="tbtn small accent" id="btnFull" title="全屏演示（也可按 F11 / Esc 退出）">⛶ 全屏演示</button>
+    </div>
+  </header>
+
+  <!-- ===== 左：配置电脑 + 教学面板 ===== -->
+  <section id="leftCol">
+    <div id="pcShell">
+      <div id="pcBar">
+        <div class="traffic"><i></i><i></i><i></i></div>
+        <span style="color:#c6dcf5">运维员-PC</span>
+        <span>· 教学模拟浏览器</span>
+        <span style="flex:1"></span>
+        <span id="pcLockBadge">本机未在同网段</span>
+        <span class="vsep"></span>
+        <button class="pcbtn" id="pcMax" title="最大化 / 还原模拟浏览器窗口（也可双击标题栏）">⤢</button>
+        <button class="pcbtn" id="pcDock" title="还原到左侧栏（取消拖动/缩放）">⇲</button>
+      </div>
+      <div id="addrBar">
+        <div class="nav" id="navBack">‹</div>
+        <div class="nav" id="navFwd">›</div>
+        <div class="nav" id="navReload">⟳</div>
+        <div id="urlBox"><span class="scheme">http://</span><span id="urlText">about:blank</span></div>
+        <span class="lock" id="addrLock">🔓</span>
+      </div>
+      <div id="screenWrap">
+        <div id="screenStage">
+          <div id="screenBox">
+            <iframe id="screenFrame" title="模拟浏览器" src="about:blank" width="1600" height="900"></iframe>
+          </div>
+        </div>
+        <div id="screenScaleTip">16:9 视口 1600×900 · 自适应缩放 <b id="screenScaleVal">100%</b></div>
+        <div class="floatbar" id="floatBar"><span id="floatMsg"></span></div>
+        <div class="pc-grip" id="pcGrip" title="拖动缩放窗口（也可拖动标题栏移动）"></div>
+      </div>
+    </div>
+
+    <div id="dock">
+      <div class="panel" id="netPanel">
+        <h3>本机网络配置 <span class="tag">运维笔记本</span></h3>
+        <div class="body">
+          <div class="nrow"><label>IP 地址</label><input id="pcIp" autocomplete="off" spellcheck="false" placeholder="192.168.1.50"></div>
+          <div class="nrow"><label>子网掩码</label><input id="pcMask" autocomplete="off" spellcheck="false" placeholder="255.255.255.0"></div>
+          <div class="nrow"><label>网关</label><input id="pcGw" autocomplete="off" spellcheck="false" placeholder="192.168.1.1"></div>
+          <div class="btnrow">
+            <button class="btn primary" id="btnApplyNet">应用配置</button>
+            <button class="btn ghost" id="btnPing">测试连通性</button>
+            <button class="btn ghost" id="btnMaxBrowser" title="放大 / 还原模拟浏览器窗口（最大化后可拖动标题栏移动、拖右下角缩放）">⤢ 放大浏览器</button>
+          </div>
+          <div id="netHint" class="hint" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="tipPanel">
+        <h3>教学引导 <span class="tag" id="taskTag">步骤</span></h3>
+        <div class="body">
+          <div id="stepTitle"></div>
+          <div id="stepBody"></div>
+          <div id="checkList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 右：实机数字孪生 ===== -->
+  <section id="rightCol">
+    <div id="simPanel">
+      <div id="threeWrap">
+        <canvas id="threeCanvas"></canvas>
+        <div id="viewCtrls">
+          <button class="tbtn" id="viewFront">正视图</button>
+          <button class="tbtn" id="viewBack">背视图</button>
+          <button class="tbtn" id="viewDisp">聚焦数码管</button>
+          <button class="tbtn" id="viewSpin">自动旋转</button>
+          <button class="tbtn" id="viewZoomIn" title="放大（滚轮同样可缩放）">＋</button>
+          <button class="tbtn" id="viewZoomOut" title="缩小（滚轮同样可缩放）">−</button>
+          <button class="tbtn" id="viewMax" title="放大 / 还原 3D 仿真窗口">⤢</button>
+        </div>
+        <div id="hoverTip"></div>
+        <div id="viewHint">拖拽旋转 · 滚轮缩放 · 长按 Menu 键进菜单 ｜ 机柜内：上方 2U 为上一级交换机（VLAN 已设置完成 · 网线接在它后面板业务口）· 中间 1U 为本机 · 下方 2U 为 200W 发射机（前面板显示频率/功率，2 根卡侬线从本机背板接到它后面板功放）</div>
+      </div>
+
+      <div id="audioMode" class="audiomode">音频输出：待播放（选择节目后自动播放真实试听音频）</div>
+
+      <div id="ledStrip">
+        <div class="ledbox">
+          <h4>数码管 <span id="ledModeTag" style="color:#7f93ac;font-weight:400">MODE</span></h4>
+          <div class="ledlabel" id="ledLabel">菜单键</div>
+          <div class="ledgrid" id="ledDigits">--------</div>
+          <div class="prog" id="ledProg">长按 Menu 键（约 0.65 秒）进入设置菜单</div>
+        </div>
+        <div class="ledbox">
+          <h4>锁定状态</h4>
+          <div class="lockrow"><span class="lockdot" id="lockDot1"></span><span id="lockTxt1">解码模块1 · 未锁定</span></div>
+          <div class="lockrow"><span class="lockdot" id="lockDot2"></span><span id="lockTxt2">解码模块2 · 未锁定</span></div>
+          <div class="lockrow"><span class="lockdot" id="lockDot3"></span><span id="lockTxt3">解码模块3 · 未锁定</span></div>
+          <div class="prog" id="lockProg">选中节目即锁定并保存，数码管显示 LOCK，后台指示灯转绿</div>
+        </div>
+        <div class="ledbox">
+          <h4>消息栏</h4>
+          <div class="panel" style="border:0;background:transparent">
+            <div class="body" style="padding:0" id="logbox"><div id="loglist"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div></div>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three/three.module.js" } }
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
